@@ -1,32 +1,54 @@
 package controller;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
-/**
- * Servlet implementation class DestroyServlet
- */
+@WebServlet("/destroy")
 public class DestroyServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	public void doGet (HttpServletRequest request, HttpServletResponse response) throws ServletException,
+		IOException {
+			// メッセージがからの場合
+			if (request.getAttribute("message") == null) {
+				request.setAttribute("message", "todoを管理しましょう");
+			}
+			
+			// idを取得して、id毎に閲覧するようにする
+			int postId = Integer.parseInt(request.getParameter("id"));
+			
+			// SQLに接続するための情報
+			String url = "jdbc:mysql://localhost/todo";
+			String user = "root";
+			String password = "";
+		
+			try {
+				Class.forName("com.mysql.jdbc.Driver");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		
+		String sql = "DELETE FROM posts WHERE id = ?";
+		try (Connection connection = DriverManager.getConnection (url, user, password);
+			PreparedStatement statement = connection.prepareStatement(sql)){
+				
+				// 一番初めの?に対して
+				statement.setInt(1, postId);
+				int number = statement.executeUpdate();
+				request.setAttribute("message","ID:" + postId + "の削除ができました");
+				
+		} catch (Exception e) {
+			request.setAttribute("message", "Exception:" + e.getMessage());
+		}
+		String forward = "/list";
+		RequestDispatcher dispatcher = request.getRequestDispatcher(forward);
+		dispatcher.forward(request, response);
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
 }

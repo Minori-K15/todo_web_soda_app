@@ -13,9 +13,9 @@ contentType="text/html; charset=UTF-8"
 </head>
 <body>
     <h1>Todo新規作成</h1>
-    message
-    <p>message</p>
-    <form action="update" method="get">
+    <% String message = (String)request.getAttribute("message"); %>
+   <p><%= message %></p>
+    <form action="create" method="get">
       <label for="title">タイトル</label><br>
       <input type="text" name="title" value=''><br>
       <br>
@@ -23,10 +23,10 @@ contentType="text/html; charset=UTF-8"
       <textarea name="content" id="" cols="30" rows="10"></textarea>
       <p></p>
       <button type="submit">保存する</button>
-      <a href=''>キャンセル</a>
+      <a href='list'>キャンセル</a>
   </form>
 <ul>
-      <li><p><a href=''>戻る</a></p></li>
+      <li><p><a href='list'>戻る</a></p></li>
     </ul>      
 </body>
 </html>
