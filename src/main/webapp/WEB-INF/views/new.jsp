@@ -25,8 +25,8 @@ contentType="text/html; charset=UTF-8"
       <button type="submit">保存する</button>
       <a href='list'>キャンセル</a>
   </form>
-<ul>
-      <li><p><a href='list'>戻る</a></p></li>
-    </ul>      
+  <ul>
+     <li><p><a href='list'>戻る</a></p></li>
+  </ul>      
 </body>
 </html>

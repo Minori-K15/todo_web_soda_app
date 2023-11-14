@@ -19,8 +19,9 @@ import jakarta.servlet.http.HttpServletResponse;
 public class ListServlet extends HttpServlet {
 	public void doGet (HttpServletRequest request, HttpServletResponse response) throws ServletException,
 		IOException {
-			// メッセージがからの場合
+			// メッセージの表示
 			if (request.getAttribute("message") == null) {
+				// nullの場合のメッセージ
 				request.setAttribute("message", "todoを管理しましょう");
 			}
 			
@@ -29,6 +30,7 @@ public class ListServlet extends HttpServlet {
 			String user = "root";
 			String password = "";
 		
+			// JDBCドライバをロード
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 			} catch (Exception e) {
@@ -36,10 +38,14 @@ public class ListServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		
+		// sqlコマンドの生成
 		String sql = "SELECT * FROM posts";
+		
+		// DBログイン
 		try (Connection connection = DriverManager.getConnection (url, user, password);
 			PreparedStatement statement = connection.prepareStatement(sql);
 			ResultSet results = statement.executeQuery()){
+				// 取得したデータをリスト化
 				ArrayList<HashMap<String, String>> rows = new
 				ArrayList<HashMap<String, String>> ();
 				
