@@ -14,21 +14,22 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import utils.HashGenerator;
 
+
 @WebServlet("/login_create")
-public class LoginCreateController extends HttpServlet {
-    private static final String DB_URL = "jdbc:mysql://localhost/auth_sample";
+public class LoginCreateServlet extends HttpServlet {
+    private static final String DB_URL = "jdbc:mysql://localhost/todo";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "";
 
-    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String view = "/WEB-INF/views/login_create.jsp";
-        req.getRequestDispatcher(view).forward(req, res);
+        request.getRequestDispatcher(view).forward(request, response);
     }
 
-    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        String username = req.getParameter("username");
-        String password = req.getParameter("password");
-        String profile = req.getParameter("profile");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String profile = request.getParameter("profile");
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
             // フォームに入力したパスワードを平文のままにせずハッシュ化する
             String hashedPassword = HashGenerator.generateHash(password);
@@ -40,7 +41,7 @@ public class LoginCreateController extends HttpServlet {
                 stmt.execute();
 
                 String view = "/WEB-INF/views/index.jsp";
-                req.getRequestDispatcher(view).forward(req, res);
+                request.getRequestDispatcher(view).forward(request, response);
             }
         } catch (SQLException e) {
             e.printStackTrace();

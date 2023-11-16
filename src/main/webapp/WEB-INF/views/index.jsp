@@ -8,6 +8,9 @@
 </head>
 <body>
   <h1>Login</h1>
+   <% String message = (String)request.getAttribute("message");  %>
+    <p><%= message %>
+
     <form method="POST" action="login">
       <label for="username">Username:</label>
       <input type="text" id="username" name="username"><br>

@@ -10,12 +10,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/logout")
-public class LogoutController extends HttpServlet {
-    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        HttpSession session = req.getSession();
+public class LogoutServlet extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
         // セッションの破棄
         // 一部上書きを行いたい場合はsession.setAttributeを利用する
         session.invalidate();
-        res.sendRedirect("login");
+        response.sendRedirect("login");
     }
 }
