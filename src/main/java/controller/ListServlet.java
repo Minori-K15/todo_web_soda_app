@@ -59,9 +59,6 @@ public class ListServlet extends HttpServlet {
 					String title = results.getString("title");
 					conlums.put("title", title);
 					
-					String content = results.getString("content");
-					conlums.put("content", content);
-					
 					rows.add(conlums);
 				}
 				request.setAttribute("rows", rows);

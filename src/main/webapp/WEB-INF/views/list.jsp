@@ -20,11 +20,8 @@
          %>
             <% for (HashMap<String, String> columns : rows) {
               %>
-              <span>
-                <%= columns.get("id") %>
-              </span>
-              <span><a href='show?id=<%= columns.get("id") %>'>
-                  <%= columns.get("title") %>
+              <span><%= columns.get("id") %></span>
+              <span><a href='show?id=<%= columns.get("id") %>'><%= columns.get("title") %>
                 </a></span><br>
               <% } %>
                 <p><a href="new">新規作成</a></p>
