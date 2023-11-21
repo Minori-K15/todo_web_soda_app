@@ -6,6 +6,9 @@
 </head>
 <body>
     <h1>Create</h1>
+    <% String message = (String)request.getAttribute("message");  %>
+    <p><%= message %>
+    
     <form method="POST" action="login_create">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username"><br>

@@ -24,6 +24,6 @@
               <span><a href='show?id=<%= columns.get("id") %>'><%= columns.get("title") %>
                 </a></span><br>
               <% } %>
-                <p><a href="new">新規作成</a></p>
+                <p><a href="new">新規作成</a> <a href="login">戻る</a></p>
     　</body>
 </html>
